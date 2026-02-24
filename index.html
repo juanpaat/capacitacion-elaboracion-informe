@@ -1,0 +1,1738 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Capacitación: Elaboración correcta de informes</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #020617;
+        --bg-soft: #0f172a;
+        --panel: #020617;
+        --accent: #22c55e;
+        --accent-soft: rgba(34, 197, 94, 0.12);
+        --danger: #f97373;
+        --danger-soft: rgba(248, 113, 113, 0.12);
+        --text: #e5e7eb;
+        --text-soft: #9ca3af;
+        --radius: 18px;
+        --shadow: 0 20px 60px rgba(15, 23, 42, 0.8);
+        --transition: 0.18s ease-out;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: radial-gradient(circle at top, #020617 0, #020617 55%, #020617 100%);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        padding: 12px;
+      }
+
+      .app {
+        width: 100%;
+        max-width: 900px;
+        background: radial-gradient(circle at 0 0, #111827 0, #020617 60%);
+        border-radius: var(--radius);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      header {
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+        background: linear-gradient(
+          120deg,
+          rgba(15, 23, 42, 0.98),
+          rgba(15, 23, 42, 0.96),
+          rgba(6, 78, 59, 0.9)
+        );
+      }
+
+      .logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: radial-gradient(circle at 20% 0, #22c55e 0, #16a34a 18%, #052e16 80%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 0 0 1px rgba(22, 163, 74, 0.7),
+          0 16px 40px rgba(22, 163, 74, 0.55);
+        padding: 6px;
+        flex-shrink: 0;
+      }
+
+      .logo svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .header-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        color: var(--text-soft);
+      }
+
+      .pill {
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--text-soft);
+        background: rgba(15, 23, 42, 0.96);
+      }
+
+      .pill-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px var(--accent-soft);
+      }
+
+      .body {
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .nav button {
+        border-radius: 999px;
+        border: 1px solid transparent;
+        padding: 6px 10px;
+        font-size: 12px;
+        background: transparent;
+        color: var(--text-soft);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background var(--transition), color var(--transition),
+          border-color var(--transition), transform var(--transition),
+          box-shadow var(--transition);
+      }
+
+      .nav button span.index {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+      }
+
+      .nav button.active {
+        background: linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.2),
+          rgba(34, 197, 94, 0.04)
+        );
+        border-color: rgba(34, 197, 94, 0.8);
+        color: var(--text);
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.8);
+      }
+
+      .nav button.active span.index {
+        background: var(--accent);
+        color: #064e3b;
+        border-color: transparent;
+      }
+
+      .nav button:not(.active):hover {
+        background: rgba(15, 23, 42, 0.95);
+        border-color: rgba(148, 163, 184, 0.7);
+        color: var(--text);
+        transform: translateY(-1px);
+      }
+
+      .progress {
+        margin-top: 2px;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.95);
+        overflow: hidden;
+      }
+
+      .progress-inner {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #22c55e, #a3e635);
+        transition: width 0.25s ease;
+      }
+
+      .section {
+        display: none;
+        margin-top: 10px;
+        border-radius: 16px;
+        background: radial-gradient(circle at top left, #020617 0, #020617 70%);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        padding: 12px 13px 10px;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: baseline;
+        margin-bottom: 8px;
+      }
+
+      .kicker {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-soft);
+      }
+
+      .section-title {
+        margin: 2px 0 0;
+        font-size: 18px;
+      }
+
+      .tag {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        color: var(--text-soft);
+      }
+
+      .tag.positive {
+        border-color: rgba(34, 197, 94, 0.7);
+        color: #bbf7d0;
+        background: var(--accent-soft);
+      }
+
+      .tag.negative {
+        border-color: rgba(248, 113, 113, 0.8);
+        color: #fecaca;
+        background: var(--danger-soft);
+      }
+
+      p {
+        margin: 0 0 6px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--text-soft);
+      }
+
+      ul {
+        margin: 0 0 4px;
+        padding-left: 18px;
+      }
+
+      li {
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-soft);
+        margin-bottom: 2px;
+      }
+
+      .columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .card {
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 8px 9px;
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 6px;
+      }
+
+      .card-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        opacity: 0.9;
+      }
+
+      .highlight {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .nav-row {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px dashed rgba(148, 163, 184, 0.4);
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .step-info {
+        font-size: 11px;
+        color: var(--text-soft);
+      }
+
+      .step-info strong {
+        color: var(--text);
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 6px;
+      }
+
+      .btn {
+        border-radius: 999px;
+        border: 0;
+        padding: 7px 13px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: background var(--transition), box-shadow var(--transition),
+          transform var(--transition), color var(--transition);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #022c22;
+        box-shadow:
+          0 12px 30px rgba(22, 163, 74, 0.55),
+          0 0 0 1px rgba(22, 163, 74, 0.95);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 16px 40px rgba(22, 163, 74, 0.6),
+          0 0 0 1px rgba(22, 163, 74, 1);
+      }
+
+      .btn-secondary {
+        background: rgba(15, 23, 42, 0.98);
+        color: var(--text-soft);
+        border: 1px solid rgba(148, 163, 184, 0.7);
+      }
+
+      .btn-secondary[disabled] {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      .btn-secondary:not([disabled]):hover {
+        background: rgba(15, 23, 42, 1);
+        color: var(--text);
+      }
+
+      /* Quiz */
+      .quiz-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+        gap: 10px;
+      }
+
+      .question {
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        padding: 8px 9px;
+        margin-bottom: 8px;
+      }
+
+      .q-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .option {
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(15, 23, 42, 0.98);
+        padding: 6px 8px;
+        font-size: 13px;
+        color: var(--text-soft);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: background var(--transition), border-color var(--transition),
+          color var(--transition), transform var(--transition);
+      }
+
+      .option-label {
+        flex: 1;
+      }
+
+      .badge {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.8);
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .option:hover {
+        transform: translateY(-1px);
+        border-color: rgba(148, 163, 184, 0.95);
+        color: var(--text);
+      }
+
+      .option.correct {
+        border-color: rgba(34, 197, 94, 0.9);
+        background: var(--accent-soft);
+        color: #bbf7d0;
+      }
+
+      .option.correct .badge {
+        background: var(--accent);
+        color: #064e3b;
+        border-color: transparent;
+      }
+
+      .option.incorrect {
+        border-color: rgba(248, 113, 113, 0.95);
+        background: var(--danger-soft);
+        color: #fecaca;
+      }
+
+      .option.incorrect .badge {
+        background: var(--danger);
+        color: #450a0a;
+        border-color: transparent;
+      }
+
+      .feedback {
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .feedback.correct {
+        color: #bbf7d0;
+      }
+
+      .feedback.incorrect {
+        color: #fecaca;
+      }
+
+      .quiz-summary {
+        border-radius: 14px;
+        background: radial-gradient(circle at top right, #052e16 0, #020617 70%);
+        border: 1px solid rgba(34, 197, 94, 0.8);
+        padding: 10px 11px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .quiz-score {
+        font-size: 20px;
+        font-weight: 600;
+        color: #bbf7d0;
+      }
+
+      .badge-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(34, 197, 94, 0.8);
+        font-size: 11px;
+        color: #bbf7d0;
+        background: rgba(5, 46, 22, 0.9);
+      }
+
+      footer {
+        padding: 7px 14px 10px;
+        font-size: 10px;
+        color: var(--text-soft);
+        background: rgba(15, 23, 42, 0.98);
+        border-top: 1px solid rgba(148, 163, 184, 0.3);
+        text-align: right;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 8px;
+        }
+
+        .app {
+          border-radius: 14px;
+        }
+
+        header {
+          padding: 10px 10px;
+        }
+
+        .logo {
+          width: 44px;
+          height: 44px;
+          border-radius: 14px;
+        }
+
+        .body {
+          padding: 10px 10px 12px;
+        }
+
+        .columns,
+        .quiz-layout {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .nav-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .nav-buttons {
+          justify-content: space-between;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app" role="application">
+      <header>
+        <div class="logo" aria-hidden="true">
+          <!-- Logo SERVIPLAGAS incrustado desde logo.svg -->
+          <svg
+            viewBox="0 0 792 252.53"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                }
+                .cls-2,
+                .cls-3 {
+                  opacity: 0.61;
+                }
+                .cls-2 {
+                  fill: url(#linear-gradient);
+                }
+                .cls-3 {
+                  fill: url(#linear-gradient-2);
+                }
+                .cls-4 {
+                  opacity: 0.22;
+                }
+                .cls-5,
+                .cls-6 {
+                  fill: #1f120f;
+                }
+                .cls-5 {
+                  stroke: #484849;
+                  stroke-width: 7.78px;
+                }
+                .cls-10,
+                .cls-11,
+                .cls-12,
+                .cls-13,
+                .cls-14,
+                .cls-15,
+                .cls-16,
+                .cls-5,
+                .cls-6,
+                .cls-7,
+                .cls-8,
+                .cls-9 {
+                  stroke-miterlimit: 10;
+                }
+                .cls-6 {
+                  stroke: #fff;
+                  stroke-width: 4.86px;
+                }
+                .cls-10,
+                .cls-11,
+                .cls-12,
+                .cls-13,
+                .cls-14,
+                .cls-15,
+                .cls-16,
+                .cls-7,
+                .cls-8,
+                .cls-9 {
+                  stroke: #3b3a3a;
+                  stroke-width: 0.49px;
+                }
+                .cls-7 {
+                  fill: url(#linear-gradient-3);
+                }
+                .cls-8 {
+                  fill: url(#linear-gradient-4);
+                }
+                .cls-9 {
+                  fill: url(#linear-gradient-5);
+                }
+                .cls-10 {
+                  fill: url(#linear-gradient-6);
+                }
+                .cls-11 {
+                  fill: url(#linear-gradient-7);
+                }
+                .cls-12 {
+                  fill: url(#linear-gradient-8);
+                }
+                .cls-13 {
+                  fill: url(#linear-gradient-9);
+                }
+                .cls-14 {
+                  fill: url(#linear-gradient-10);
+                }
+                .cls-15 {
+                  fill: url(#linear-gradient-11);
+                }
+                .cls-16 {
+                  fill: url(#linear-gradient-12);
+                }
+                .cls-17 {
+                  clip-path: url(#clip-path);
+                }
+                .cls-18 {
+                  fill: url(#radial-gradient);
+                }
+                .cls-19 {
+                  clip-path: url(#clip-path-2);
+                }
+                .cls-20 {
+                  fill: url(#radial-gradient-2);
+                }
+              </style>
+              <linearGradient
+                id="linear-gradient"
+                x1="524.91"
+                y1="235.66"
+                x2="527.25"
+                y2="215.16"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stop-color="#595a5c" />
+                <stop offset="1" stop-color="#6e6f70" />
+              </linearGradient>
+              <linearGradient
+                id="linear-gradient-2"
+                x1="24.65"
+                y1="232.66"
+                x2="338.34"
+                y2="184.03"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0.02" stop-color="#404042" />
+                <stop offset="0.23" stop-color="#4a4b4d" />
+                <stop offset="0.61" stop-color="#555658" />
+                <stop offset="1" stop-color="#595a5c" />
+              </linearGradient>
+              <linearGradient
+                id="linear-gradient-3"
+                x1="67.12"
+                y1="79.06"
+                x2="69.77"
+                y2="152.41"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stop-color="#595a5c" />
+                <stop offset="0.29" stop-color="#48484a" />
+                <stop offset="1" stop-color="#231f20" />
+              </linearGradient>
+              <linearGradient
+                id="linear-gradient-4"
+                x1="735.12"
+                y1="198.65"
+                x2="735.79"
+                y2="95.56"
+                xlink:href="#linear-gradient"
+              />
+              <linearGradient
+                id="linear-gradient-5"
+                x1="150.08"
+                y1="75.99"
+                x2="152.73"
+                y2="149.49"
+                xlink:href="#linear-gradient-3"
+              />
+              <linearGradient
+                id="linear-gradient-6"
+                x1="212.62"
+                y1="73.9"
+                x2="215.26"
+                y2="147.26"
+                xlink:href="#linear-gradient-3"
+              />
+              <linearGradient
+                id="linear-gradient-7"
+                x1="336.97"
+                y1="69.22"
+                x2="339.61"
+                y2="142.58"
+                xlink:href="#linear-gradient-3"
+              />
+              <linearGradient
+                id="linear-gradient-8"
+                x1="400.4"
+                y1="196.51"
+                x2="401.06"
+                y2="93.41"
+                xlink:href="#linear-gradient"
+              />
+              <linearGradient
+                id="linear-gradient-9"
+                x1="459.9"
+                y1="196.89"
+                x2="460.56"
+                y2="93.79"
+                xlink:href="#linear-gradient"
+              />
+              <linearGradient
+                id="linear-gradient-10"
+                x1="510.47"
+                y1="197.21"
+                x2="511.13"
+                y2="94.12"
+                xlink:href="#linear-gradient"
+              />
+              <linearGradient
+                id="linear-gradient-11"
+                x1="662.91"
+                y1="198.19"
+                x2="663.57"
+                y2="95.1"
+                xlink:href="#linear-gradient"
+              />
+              <linearGradient
+                id="linear-gradient-12"
+                x1="587.1"
+                y1="197.71"
+                x2="587.76"
+                y2="94.61"
+                xlink:href="#linear-gradient"
+              />
+              <clipPath id="clip-path">
+                <path
+                  class="cls-1"
+                  d="M241.22,89.83H158.61V32H209.5s14.54,4.84,20,10.57a157.62,157.62,0,0,1,11.68,14.32Z"
+                />
+              </clipPath>
+              <radialGradient
+                id="radial-gradient"
+                cx="200.24"
+                cy="47.54"
+                r="31.94"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0.29" stop-color="#231f20" />
+                <stop offset="0.31" stop-color="#433d21" />
+                <stop offset="0.34" stop-color="#736a22" />
+                <stop offset="0.38" stop-color="#9d9223" />
+                <stop offset="0.41" stop-color="#bfb224" />
+                <stop offset="0.45" stop-color="#d9ca25" />
+                <stop offset="0.48" stop-color="#ecdc26" />
+                <stop offset="0.52" stop-color="#f7e726" />
+                <stop offset="0.56" stop-color="#fbea26" />
+                <stop offset="0.66" stop-color="#fad92e" />
+                <stop offset="0.92" stop-color="#f8af41" />
+                <stop offset="0.93" stop-color="#f5ad41" />
+                <stop offset="0.94" stop-color="#eba63f" />
+                <stop offset="0.96" stop-color="#da9b3c" />
+                <stop offset="0.97" stop-color="#c28b39" />
+                <stop offset="0.97" stop-color="#a37634" />
+                <stop offset="0.98" stop-color="#7d5c2e" />
+                <stop offset="0.99" stop-color="#523e27" />
+                <stop offset="1" stop-color="#231f20" />
+              </radialGradient>
+              <clipPath id="clip-path-2">
+                <path
+                  class="cls-1"
+                  d="M324.63,89.83h82.61V32H356.36s-14.54,4.84-20.05,10.57a157.62,157.62,0,0,0-11.68,14.32Z"
+                />
+              </clipPath>
+              <radialGradient
+                id="radial-gradient-2"
+                cx="941"
+                cy="47.54"
+                r="31.94"
+                gradientTransform="matrix(-1, 0, 0, 1, 1306.61, 0)"
+                xlink:href="#radial-gradient"
+              />
+            </defs>
+            <polygon
+              class="cls-2"
+              points="766.42 226.73 285.44 226.73 294.81 198.98 766.42 198.98 766.42 226.73"
+            />
+            <polygon
+              class="cls-3"
+              points="25.58 226.73 279.18 226.73 269.81 198.98 25.58 198.98 25.58 226.73"
+            />
+            <g class="cls-4">
+              <path
+                class="cls-5"
+                d="M421.19,25.8h-51c-33.85,0-55.41,27.84-61.28,45.17S290,128.6,290,128.6h-14.1S262.85,88.3,257,71,229.54,25.8,195.69,25.8h-51L157,38.72s2.33-.28,6.12-.58a38.33,38.33,0,0,0,72.29,24.75A56.2,56.2,0,0,1,243,76.61l40,122.78L322.87,76.61a55.74,55.74,0,0,1,7.61-13.73,38.33,38.33,0,0,0,73.46-15.34,38.79,38.79,0,0,0-1.16-9.4c3.78.3,6.12.58,6.12.58Z"
+              />
+              <path
+                class="cls-5"
+                d="M90.36,119.72H46.65c-.06,0-6.24-.54-6.24-10.21,0-9.17,5.5-12.26,8-12.26H93a4.74,4.74,0,0,0,4.74-4.74V87.15A4.74,4.74,0,0,0,93,82.41H48.41c-11.22,0-22.83,10.14-22.83,27.1,0,17.27,12.32,25,21.07,25H90.36c5.74,0,7,9.52,7,12.85,0,.13-.11,12.56-9.38,12.56H35.53a4.74,4.74,0,0,0-4.74,4.73v5.36a4.74,4.74,0,0,0,4.74,4.74H88c15.73,0,24.22-14.11,24.22-27.39C112.23,133.64,104.71,119.72,90.36,119.72Z"
+              />
+              <path
+                class="cls-5"
+                d="M749.58,118.44H723.65a4.06,4.06,0,0,1-4.07-4v-.1a9.58,9.58,0,0,1,.28-2.4,4,4,0,0,1,3.93-3h26.55a4.07,4.07,0,0,0,4.07-4.06V98.17a4.07,4.07,0,0,0-4.07-4.06H722.22c-8.59,0-17.47,7.57-17.47,20.25,0,13,9.55,18.91,16.32,18.91h28.51c.94,0,2,3.09,2,5.8,0,.06-.1,5.61-3.54,5.61H714.79a4.07,4.07,0,0,0-4.06,4.07v6.7a4.07,4.07,0,0,0,4.06,4.07h33.26c11.93,0,18.37-10.54,18.37-20.45C766.42,128.82,760.64,118.44,749.58,118.44Z"
+              />
+              <path
+                class="cls-5"
+                d="M176.36,94.6H150.27a24.79,24.79,0,0,0-21.68,11.77c-4.65,7.34-5.34,15.61-5.34,19.88,0,15.88,8.39,33,26.8,33h26.31a3.17,3.17,0,0,0,3.18-3.17v-8.49a3.17,3.17,0,0,0-3.18-3.17H150.05c-2.45,0-6-.55-8.82-5.31l0,0a3.17,3.17,0,0,1,2.78-4.71h22.69a3.17,3.17,0,0,0,3.17-3.17v-8.49a3.17,3.17,0,0,0-3.17-3.17H143.61a3.18,3.18,0,0,1-2.69-4.86,10.34,10.34,0,0,1,9.35-5.2h26.09a3.18,3.18,0,0,0,3.18-3.18V97.78A3.18,3.18,0,0,0,176.36,94.6Z"
+              />
+              <path
+                class="cls-5"
+                d="M217.87,94.6H198.31a5.48,5.48,0,0,0-5.48,5.49V154a5.48,5.48,0,0,0,5.48,5.48h3.87a5.48,5.48,0,0,0,5.48-5.48v-39a5.48,5.48,0,0,1,5.48-5.48h4.73c2.25,0,2.48.41,2.68.77.54,1,1.15,3,1.43,7.2a5.48,5.48,0,0,0,5.47,5.1h3.91a5.49,5.49,0,0,0,5.48-5.8C236.32,107.17,233.46,94.6,217.87,94.6Z"
+              />
+              <rect
+                class="cls-5"
+                x="331.63"
+                y="94.24"
+                width="14.83"
+                height="65.21"
+                rx="4.15"
+              />
+              <path
+                class="cls-5"
+                d="M409.6,94.31c-15.72,0-41.24.29-41.5.3l-2,0a5.42,5.42,0,0,0-5.36,5.43v81a5.44,5.44,0,0,0,5.43,5.43h4A5.44,5.44,0,0,0,375.6,181V164.65a5.43,5.43,0,0,1,5.43-5.43h29.45c20.1,0,30.62-16.82,30.62-33.44a33,33,0,0,0-7.86-20.65A30.56,30.56,0,0,0,409.6,94.31Zm.88,50.08H381A5.43,5.43,0,0,1,375.6,139V114.74a5.43,5.43,0,0,1,5.38-5.43c8.68-.08,20.1-.17,28.62-.17,11.78,0,16.67,10.84,16.67,16.64C426.27,126.54,426.09,144.39,410.48,144.39Z"
+              />
+              <rect
+                class="cls-5"
+                x="453"
+                y="73.68"
+                width="14.83"
+                height="85.77"
+                rx="4.59"
+              />
+              <path
+                class="cls-5"
+                d="M518.86,94.6H494.41a2.87,2.87,0,0,0-2.86,2.87v9.1a2.86,2.86,0,0,0,2.86,2.87h24.45c4.66,0,8.74,2.83,8.74,6.06a2.86,2.86,0,0,1-2.86,2.86H501.53c-15.47,0-22.39,10.31-22.39,20.52s7.65,20.64,24.74,20.64h35.69a2.88,2.88,0,0,0,2.87-2.87V115.5C542.44,104,531.86,94.6,518.86,94.6Zm8.74,47.22a2.86,2.86,0,0,1-2.86,2.86H503.88c-3.7,0-9.91-.75-9.91-5.8,0-2.81.9-5.69,7.56-5.69h23.21a2.86,2.86,0,0,1,2.86,2.87Z"
+              />
+              <path
+                class="cls-5"
+                d="M671.31,94.6H646.85A2.87,2.87,0,0,0,644,97.47v9.1a2.86,2.86,0,0,0,2.86,2.87h24.46c4.65,0,8.73,2.83,8.73,6.06a2.86,2.86,0,0,1-2.86,2.86H654c-15.47,0-22.4,10.31-22.4,20.52s7.65,20.64,24.75,20.64H692a2.87,2.87,0,0,0,2.87-2.87V115.5C694.88,104,684.3,94.6,671.31,94.6ZM680,141.82a2.86,2.86,0,0,1-2.86,2.86H656.33c-3.71,0-9.92-.75-9.92-5.8,0-2.81.9-5.69,7.57-5.69h23.2a2.86,2.86,0,0,1,2.86,2.87Z"
+              />
+              <path
+                class="cls-5"
+                d="M615.43,94.6h-29c-15.48,0-31.5,12.14-31.5,32.46s14.52,32.6,28.56,32.6c5.1,0,14.84-.11,21.67-.19v.85c0,2.6-4.5,5.51-10.51,5.51H564.83a4.55,4.55,0,0,0-4.55,4.55v5.73a4.55,4.55,0,0,0,4.55,4.55h29.81c14.21,0,25.34-8.93,25.34-20.34V99.16A4.56,4.56,0,0,0,615.43,94.6Zm-10.28,45.54a4.56,4.56,0,0,1-4.5,4.55c-6.15.07-13.19.14-17.17.14-5.7,0-13.73-5.51-13.73-17.77,0-11.45,8.59-17.62,16.67-17.62h14.17a4.56,4.56,0,0,1,4.56,4.55Z"
+              />
+            </g>
+            <path
+              class="cls-6"
+              d="M421.19,25.8h-51c-33.85,0-55.41,27.84-61.28,45.17S290,128.6,290,128.6h-14.1S262.85,88.3,257,71,229.54,25.8,195.69,25.8h-51L157,38.72s2.33-.28,6.12-.58a38.33,38.33,0,0,0,72.29,24.75A56.2,56.2,0,0,1,243,76.61l40,122.78L322.87,76.61a55.74,55.74,0,0,1,7.61-13.73,38.33,38.33,0,0,0,73.46-15.34,38.79,38.79,0,0,0-1.16-9.4c3.78.3,6.12.58,6.12.58Z"
+            />
+            <path
+              class="cls-6"
+              d="M90.36,119.72H46.65c-.06,0-6.24-.54-6.24-10.21,0-9.17,5.5-12.26,8-12.26H93a4.74,4.74,0,0,0,4.74-4.74V87.15A4.74,4.74,0,0,0,93,82.41H48.41c-11.22,0-22.83,10.14-22.83,27.1,0,17.27,12.32,25,21.07,25H90.36c5.74,0,7,9.52,7,12.85,0,.13-.11,12.56-9.38,12.56H35.53a4.74,4.74,0,0,0-4.74,4.73v5.36a4.74,4.74,0,0,0,4.74,4.74H88c15.73,0,24.22-14.11,24.22-27.39C112.23,133.64,104.71,119.72,90.36,119.72Z"
+            />
+            <path
+              class="cls-6"
+              d="M749.58,118.44H723.65a4.06,4.06,0,0,1-4.07-4v-.1a9.58,9.58,0,0,1,.28-2.4,4,4,0,0,1,3.93-3h26.55a4.07,4.07,0,0,0,4.07-4.06V98.17a4.07,4.07,0,0,0-4.07-4.06H722.22c-8.59,0-17.47,7.57-17.47,20.25,0,13,9.55,18.91,16.32,18.91h28.51c.94,0,2,3.09,2,5.8,0,.06-.1,5.61-3.54,5.61H714.79a4.07,4.07,0,0,0-4.06,4.07v6.7a4.07,4.07,0,0,0,4.06,4.07h33.26c11.93,0,18.37-10.54,18.37-20.45C766.42,128.82,760.64,118.44,749.58,118.44Z"
+            />
+            <path
+              class="cls-6"
+              d="M176.36,94.6H150.27a24.79,24.79,0,0,0-21.68,11.77c-4.65,7.34-5.34,15.61-5.34,19.88,0,15.88,8.39,33,26.8,33h26.31a3.17,3.17,0,0,0,3.18-3.17v-8.49a3.17,3.17,0,0,0-3.18-3.17H150.05c-2.45,0-6-.55-8.82-5.31l0,0a3.17,3.17,0,0,1,2.78-4.71h22.69a3.17,3.17,0,0,0,3.17-3.17v-8.49a3.17,3.17,0,0,0-3.17-3.17H143.61a3.18,3.18,0,0,1-2.69-4.86,10.34,10.34,0,0,1,9.35-5.2h26.09a3.18,3.18,0,0,0,3.18-3.18V97.78A3.18,3.18,0,0,0,176.36,94.6Z"
+            />
+            <path
+              class="cls-6"
+              d="M217.87,94.6H198.31a5.48,5.48,0,0,0-5.48,5.49V154a5.48,5.48,0,0,0,5.48,5.48h3.87a5.48,5.48,0,0,0,5.48-5.48v-39a5.48,5.48,0,0,1,5.48-5.48h4.73c2.25,0,2.48.41,2.68.77.54,1,1.15,3,1.43,7.2a5.48,5.48,0,0,0,5.47,5.1h3.91a5.49,5.49,0,0,0,5.48-5.8C236.32,107.17,233.46,94.6,217.87,94.6Z"
+            />
+            <rect
+              class="cls-6"
+              x="331.63"
+              y="94.24"
+              width="14.83"
+              height="65.21"
+              rx="4.15"
+            />
+            <path
+              class="cls-6"
+              d="M409.6,94.31c-15.72,0-41.24.29-41.5.3l-2,0a5.42,5.42,0,0,0-5.36,5.43v81a5.44,5.44,0,0,0,5.43,5.43h4A5.44,5.44,0,0,0,375.6,181V164.65a5.43,5.43,0,0,1,5.43-5.43h29.45c20.1,0,30.62-16.82,30.62-33.44a33,33,0,0,0-7.86-20.65A30.56,30.56,0,0,0,409.6,94.31Zm.88,50.08H381A5.43,5.43,0,0,1,375.6,139V114.74a5.43,5.43,0,0,1,5.38-5.43c8.68-.08,20.1-.17,28.62-.17,11.78,0,16.67,10.84,16.67,16.64C426.27,126.54,426.09,144.39,410.48,144.39Z"
+            />
+            <rect
+              class="cls-6"
+              x="453"
+              y="73.68"
+              width="14.83"
+              height="85.77"
+              rx="4.59"
+            />
+            <path
+              class="cls-6"
+              d="M518.86,94.6H494.41a2.87,2.87,0,0,0-2.86,2.87v9.1a2.86,2.86,0,0,0,2.86,2.87h24.45c4.66,0,8.74,2.83,8.74,6.06a2.86,2.86,0,0,1-2.86,2.86H501.53c-15.47,0-22.39,10.31-22.39,20.52s7.65,20.64,24.74,20.64h35.69a2.88,2.88,0,0,0,2.87-2.87V115.5C542.44,104,531.86,94.6,518.86,94.6Zm8.74,47.22a2.86,2.86,0,0,1-2.86,2.86H503.88c-3.7,0-9.91-.75-9.91-5.8,0-2.81.9-5.69,7.56-5.69h23.21a2.86,2.86,0,0,1,2.86,2.87Z"
+            />
+            <path
+              class="cls-6"
+              d="M671.31,94.6H646.85A2.87,2.87,0,0,0,644,97.47v9.1a2.86,2.86,0,0,0,2.86,2.87h24.46c4.65,0,8.73,2.83,8.73,6.06a2.86,2.86,0,0,1-2.86,2.86H654c-15.47,0-22.4,10.31-22.4,20.52s7.65,20.64,24.75,20.64H692a2.87,2.87,0,0,0,2.87-2.87V115.5C694.88,104,684.3,94.6,671.31,94.6ZM680,141.82a2.86,2.86,0,0,1-2.86,2.86H656.33c-3.71,0-9.92-.75-9.92-5.8,0-2.81.9-5.69,7.57-5.69h23.2a2.86,2.86,0,0,1,2.86,2.87Z"
+            />
+            <path
+              class="cls-6"
+              d="M615.43,94.6h-29c-15.48,0-31.5,12.14-31.5,32.46s14.52,32.6,28.56,32.6c5.1,0,14.84-.11,21.67-.19v.85c0,2.6-4.5,5.51-10.51,5.51H564.83a4.55,4.55,0,0,0-4.55,4.55v5.73a4.55,4.55,0,0,0,4.55,4.55h29.81c14.21,0,25.34-8.93,25.34-20.34V99.16A4.56,4.56,0,0,0,615.43,94.6Zm-10.28,45.54a4.56,4.56,0,0,1-4.5,4.55c-6.15.07-13.19.14-17.17.14-5.7,0-13.73-5.51-13.73-17.77,0-11.45,8.59-17.62,16.67-17.62h14.17a4.56,4.56,0,0,1,4.56,4.55Z"
+            />
+          </svg>
+        </div>
+        <div class="header-text">
+          <div class="title">Capacitación: elaboración correcta de informes</div>
+          <div class="subtitle">
+            El informe es la evidencia del servicio y la imagen de SERVIPLAGAS SAS ante el
+            cliente.
+          </div>
+        </div>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Recurso interactivo • Offline</span>
+        </div>
+      </header>
+
+      <div class="body">
+        <nav class="nav" aria-label="Secciones del contenido">
+          <button data-section="intro" class="active">
+            <span class="index">1</span>
+            Bienvenida
+          </button>
+          <button data-section="importancia">
+            <span class="index">2</span>
+            ¿Por qué importa?
+          </button>
+          <button data-section="errores">
+            <span class="index">3</span>
+            Errores frecuentes
+          </button>
+          <button data-section="pasos">
+            <span class="index">4</span>
+            Paso a paso
+          </button>
+          <button data-section="consecuencias">
+            <span class="index">5</span>
+            Consecuencias reales
+          </button>
+          <button data-section="quiz">
+            <span class="index">6</span>
+            Mini evaluación
+          </button>
+        </nav>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-inner" id="progressInner"></div>
+        </div>
+
+        <!-- Sección 1 -->
+        <section id="intro" class="section active" aria-labelledby="intro-title">
+          <div class="section-header">
+            <div>
+              <div class="kicker">Bienvenida</div>
+              <h2 class="section-title" id="intro-title">
+                ¿Por qué estamos hablando de informes?
+              </h2>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="9" y="4" width="14" height="22" rx="2" ry="2" fill="#0ea5e9" />
+                  <rect x="7" y="6" width="14" height="22" rx="2" ry="2" fill="#020617" stroke="#38bdf8" />
+                  <rect x="10" y="9" width="8" height="1.6" fill="#38bdf8" />
+                  <rect x="10" y="12" width="7" height="1.4" fill="#38bdf8" />
+                  <circle cx="9" cy="23" r="3" fill="#22c55e" />
+                  <circle cx="9" cy="18" r="2.4" fill="#a7f3d0" />
+                </svg>
+              </div>
+              <span class="tag positive">Objetivo de esta capacitación</span>
+              <p>
+                Que todos <span class="highlight">entendamos la importancia del informe</span>
+                que entregamos al cliente y cómo hacerlo correctamente.
+              </p>
+              <p>
+                El informe es el <span class="highlight">producto final</span> que el cliente
+                recibe: la <span class="highlight">evidencia del servicio</span> y la forma en
+                que <span class="highlight">SERVIPLAGAS SAS se presenta</span> ante él.
+              </p>
+              <ul>
+                <li>
+                  Un servicio puede estar bien hecho, pero
+                  <span class="highlight">un mal informe hace creer lo contrario.</span>
+                </li>
+                <li>
+                  El informe tiene valor
+                  <span class="highlight">técnico, legal y comercial</span>.
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="5" y="8" width="20" height="14" rx="3" ry="3" fill="#1d2837" stroke="#4b5563" />
+                  <polyline points="9,14 13,18 22,10" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="9" cy="22" r="1.4" fill="#38bdf8" />
+                  <circle cx="15" cy="22" r="1.4" fill="#facc15" />
+                  <circle cx="21" cy="22" r="1.4" fill="#f97316" />
+                </svg>
+              </div>
+              <span class="tag">En este recurso verás</span>
+              <ul>
+                <li>Qué es realmente un informe y por qué importa.</li>
+                <li>Cómo un buen informe genera confianza.</li>
+                <li>Errores frecuentes que debemos evitar.</li>
+                <li>Un paso a paso sencillo para elaborarlo.</li>
+                <li>Consecuencias reales de un mal informe.</li>
+                <li>Un mini quiz para reforzar lo aprendido.</li>
+              </ul>
+              <p>
+                Está pensado para ser <span class="highlight">rápido, visual e
+                interactivo</span>, y fácil de usar tanto en celular como en computador.
+              </p>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>1</strong> de <strong>6</strong> • Introducción
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev disabled>Anterior</button>
+              <button class="btn btn-primary" data-next="importancia">
+                Siguiente: ¿Por qué importa?
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section
+          id="importancia"
+          class="section"
+          aria-labelledby="importancia-title"
+        >
+          <div class="section-header">
+            <div>
+              <div class="kicker">Importancia</div>
+              <h2 class="section-title" id="importancia-title">
+                El informe es la evidencia del servicio y genera confianza
+              </h2>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="8" y="5" width="16" height="22" rx="2" ry="2" fill="#0f172a" stroke="#6b7280" />
+                  <rect x="11" y="8" width="10" height="1.6" fill="#38bdf8" />
+                  <rect x="11" y="11" width="8" height="1.4" fill="#38bdf8" />
+                  <rect x="11" y="14" width="9" height="1.4" fill="#22c55e" />
+                  <circle cx="12" cy="21" r="1.4" fill="#22c55e" />
+                  <polyline points="12,21 14,23 19,18" fill="none" stroke="#22c55e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <span class="tag positive">El informe es evidencia</span>
+              <p>
+                El informe es la <span class="highlight">evidencia de que el servicio se
+                realizó</span>: deja por escrito qué se encontró y qué acciones se tomaron.
+              </p>
+              <ul>
+                <li>
+                  Sirve como <span class="highlight">soporte ante auditorías</span>, visitas de
+                  entes de control y revisiones internas del cliente.
+                </li>
+                <li>
+                  Si está <span class="highlight">incorrecto o incompleto</span>, el cliente
+                  puede pensar que el servicio no se hizo o se hizo mal.
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M9 15c0-3 2.2-5.5 5-5.5s5 2.5 5 5.5" fill="#0f172a" stroke="#22c55e" />
+                  <rect x="8" y="15" width="14" height="8" rx="4" ry="4" fill="#22c55e" opacity="0.35" />
+                  <circle cx="12" cy="19" r="2" fill="#22c55e" />
+                  <circle cx="18" cy="19" r="2" fill="#22c55e" />
+                </svg>
+              </div>
+              <span class="tag positive">El informe genera confianza</span>
+              <p>
+                El cliente toma decisiones basadas en el informe: con él conoce la situación de
+                sus instalaciones, los riesgos y las acciones hechas.
+              </p>
+              <ul>
+                <li>
+                  Un informe <span class="highlight">bien elaborado transmite
+                  profesionalismo, orden y responsabilidad.</span>
+                </li>
+                <li>
+                  Esto fortalece la relación comercial y hace que el cliente
+                  <span class="highlight">confíe en la empresa</span>.
+                </li>
+                <li>
+                  La <span class="highlight">confianza del cliente</span> es uno de los
+                  activos más importantes que tenemos.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>2</strong> de <strong>6</strong> • Importancia del informe
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev="intro">Anterior</button>
+              <button class="btn btn-primary" data-next="errores">
+                Siguiente: Errores frecuentes
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section id="errores" class="section" aria-labelledby="errores-title">
+          <div class="section-header">
+            <div>
+              <div class="kicker">Errores a evitar</div>
+              <h2 class="section-title" id="errores-title">
+                Errores típicos que dañan un buen servicio
+              </h2>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <polygon points="16,6 6,24 26,24" fill="#020617" stroke="#f97316" stroke-width="1.4" />
+                  <line x1="16" y1="12" x2="16" y2="18" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" />
+                  <circle cx="16" cy="21.5" r="1.2" fill="#f97316" />
+                </svg>
+              </div>
+              <span class="tag negative">Errores frecuentes</span>
+              <p>
+                Un mal informe <span class="highlight">genera desconfianza inmediata</span>. Los
+                errores más comunes son:
+              </p>
+              <ul>
+                <li>
+                  Enviar un informe que corresponde a
+                  <span class="highlight">otro cliente o a otro servicio</span>.
+                </li>
+                <li>
+                  Datos básicos incorrectos:
+                  <span class="highlight">nombre del cliente, tipo de servicio o fecha</span>.
+                </li>
+                <li>
+                  Descripciones vagas o
+                  <span class="highlight">sin explicar qué se encontró ni qué se hizo</span>.
+                </li>
+                <li>
+                  No se especifican
+                  <span class="highlight">recomendaciones o acciones sugeridas</span>.
+                </li>
+                <li>
+                  Ortografía y redacción descuidadas que dan sensación de improvisación.
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="14" r="6" fill="#0f172a" stroke="#6b7280" />
+                  <path d="M13.5 13.8c0-1.4.9-2.4 2.5-2.4 1.2 0 2.1.7 2.1 1.7 0 .9-.5 1.3-1.1 1.8-.6.4-.9.7-.9 1.4" fill="none" stroke="#e5e7eb" stroke-linecap="round" />
+                  <circle cx="16" cy="19.4" r="0.9" fill="#e5e7eb" />
+                  <rect x="10" y="19.5" width="12" height="5" rx="2.5" ry="2.5" fill="#0f172a" stroke="#6b7280" />
+                </svg>
+              </div>
+              <span class="tag">Lo que el cliente puede pensar</span>
+              <p>
+                Con un informe mal hecho, el cliente puede percibir
+                <span class="highlight">desorden, falta de control y poco profesionalismo</span>.
+              </p>
+              <ul>
+                <li>“¿Realmente hicieron el servicio?”</li>
+                <li>“Si el informe está mal, ¿qué tal el trabajo en campo?”</li>
+                <li>“No puedo confiar en estos datos para tomar decisiones.”</li>
+              </ul>
+              <p>
+                Un solo error puede
+                <span class="highlight">afectar la imagen de toda la empresa</span>, no solo la
+                de una persona.
+              </p>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>3</strong> de <strong>6</strong> • Errores frecuentes
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev="importancia">Anterior</button>
+              <button class="btn btn-primary" data-next="pasos">
+                Siguiente: Paso a paso
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 4 -->
+        <section id="pasos" class="section" aria-labelledby="pasos-title">
+          <div class="section-header">
+            <div>
+              <div class="kicker">Guía práctica</div>
+              <h2 class="section-title" id="pasos-title">
+                Paso a paso para un informe correcto
+              </h2>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="8" y="6" width="16" height="20" rx="2" ry="2" fill="#0f172a" stroke="#6b7280" />
+                  <rect x="11" y="9" width="9" height="1.4" fill="#e5e7eb" />
+                  <rect x="11" y="12" width="7" height="1.3" fill="#9ca3af" />
+                  <circle cx="11" cy="17" r="1.2" fill="#22c55e" />
+                  <polyline points="11,17 12.4,18.4 15.4,15.8" fill="none" stroke="#bbf7d0" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <span class="tag positive">Antes de enviar</span>
+              <p>
+                Una revisión básica toma menos de un minuto y
+                <span class="highlight">evita problemas graves</span>. Antes de enviar, verifica:
+              </p>
+              <ul>
+                <li>Que <span class="highlight">el cliente</span> sea el correcto.</li>
+                <li>
+                  Que el <span class="highlight">tipo de servicio</span> corresponda al
+                  realizado.
+                </li>
+                <li>
+                  Que la <span class="highlight">fecha</span> del servicio y del informe sea
+                  correcta.
+                </li>
+                <li>
+                  Leer completamente el informe, asegurando que describe
+                  <span class="highlight">qué se encontró, qué se hizo y qué se
+                  recomienda</span>.
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <polyline points="8,22 8,10 24,10" fill="none" stroke="#4b5563" stroke-width="1.4" />
+                  <rect x="9" y="12" width="4" height="2" fill="#22c55e" />
+                  <rect x="14" y="15" width="4" height="2" fill="#38bdf8" />
+                  <rect x="19" y="18" width="4" height="2" fill="#f97316" />
+                </svg>
+              </div>
+              <span class="tag">Plantilla mental rápida</span>
+              <ul>
+                <li>
+                  <span class="highlight">1. Encabezado claro</span>:
+                  datos del cliente, servicio, fecha y responsable.
+                </li>
+                <li>
+                  <span class="highlight">2. Hallazgos</span>:
+                  condiciones encontradas y riesgos relevantes.
+                </li>
+                <li>
+                  <span class="highlight">3. Acciones realizadas</span>:
+                  qué se hizo exactamente durante el servicio.
+                </li>
+                <li>
+                  <span class="highlight">4. Recomendaciones</span>:
+                  qué debe hacer el cliente para mantener el control.
+                </li>
+                <li>
+                  <span class="highlight">5. Cierre profesional</span>:
+                  resumen breve y firma o identificación de SERVIPLAGAS SAS.
+                </li>
+              </ul>
+              <p>
+                Seguir los <span class="highlight">protocolos establecidos</span> garantiza que
+                el informe sea <span class="highlight">correcto, preciso y
+                confiable</span>, y protege a la empresa y al trabajador.
+              </p>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>4</strong> de <strong>6</strong> • Paso a paso
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev="errores">Anterior</button>
+              <button class="btn btn-primary" data-next="consecuencias">
+                Siguiente: Consecuencias reales
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 5 -->
+        <section
+          id="consecuencias"
+          class="section"
+          aria-labelledby="consecuencias-title"
+        >
+          <div class="section-header">
+            <div>
+              <div class="kicker">Impacto real</div>
+              <h2 class="section-title" id="consecuencias-title">
+                ¿Qué pasa cuando el informe está mal?
+              </h2>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="card">
+              <span class="tag negative">Impacto en la confianza</span>
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <polyline points="7,11 13,15 18,13 24,17" fill="none" stroke="#ef4444" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                  <polyline points="7,21 25,21" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round" />
+                  <line x1="11" y1="21" x2="11" y2="11" stroke="#6b7280" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <p>
+                Un error en un informe tiene consecuencias reales:
+              </p>
+              <ul>
+                <li>El cliente <span class="highlight">pierde confianza</span>.</li>
+                <li>La empresa <span class="highlight">pierde credibilidad</span>.</li>
+                <li>Se pueden <span class="highlight">perder contratos</span>.</li>
+                <li>Se afecta la <span class="highlight">reputación</span> de la empresa.</li>
+              </ul>
+              <p>
+                Recuperar la confianza es mucho más difícil que perderla, por eso debemos
+                <span class="highlight">prevenir estos errores</span>.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag">Impacto económico y compromiso</span>
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="11" cy="12" r="3" fill="#22c55e" />
+                  <rect x="9" y="15" width="4" height="6" rx="1.5" ry="1.5" fill="#22c55e" />
+                  <rect x="16" y="14" width="7" height="5" rx="1" ry="1" fill="#0f172a" stroke="#facc15" />
+                  <path d="M18 15.5h3.5" stroke="#facc15" stroke-width="1.2" stroke-linecap="round" />
+                  <path d="M18 17.5h3.5" stroke="#facc15" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <p>
+                Un cliente que pierde confianza puede decidir
+                <span class="highlight">no renovar el contrato</span> ni contratar nuevos
+                servicios. Esto representa <span class="highlight">pérdida de ingresos</span>
+                para la empresa y nos afecta a todos.
+              </p>
+              <p>
+                Cada persona es responsable de
+                <span class="highlight">verificar la información antes de enviar un
+                informe</span>:
+              </p>
+              <ul>
+                <li>No asumir que está correcto sin revisarlo.</li>
+                <li>Confirmar cliente, servicio, fecha y contenido.</li>
+                <li>Entender que el informe representa a toda la empresa.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>5</strong> de <strong>6</strong> • Consecuencias reales
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev="pasos">Anterior</button>
+              <button class="btn btn-primary" data-next="quiz">
+                Siguiente: Mini evaluación
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección 6: Quiz -->
+        <section id="quiz" class="section" aria-labelledby="quiz-title">
+          <div class="section-header">
+            <div>
+              <div class="kicker">Mini evaluación</div>
+              <h2 class="section-title" id="quiz-title">
+                Refuerza lo aprendido sobre informes
+              </h2>
+            </div>
+          </div>
+          <div class="quiz-layout">
+            <div>
+              <div class="question" data-question="1">
+                <div class="q-title">
+                  1. ¿Cuál de estas afirmaciones describe mejor lo que es un informe?
+                </div>
+                <div class="options">
+                  <button class="option" data-correct="false">
+                    <span class="option-label">Un requisito de oficina que se hace por rutina.</span>
+                    <span class="badge">A</span>
+                  </button>
+                  <button class="option" data-correct="true">
+                    <span class="option-label">
+                      La evidencia del servicio realizado y la imagen de SERVIPLAGAS SAS ante
+                      el cliente.
+                    </span>
+                    <span class="badge">B</span>
+                  </button>
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Un resumen opcional que se envía solo si el cliente lo pide.
+                    </span>
+                    <span class="badge">C</span>
+                  </button>
+                </div>
+                <div class="feedback" id="feedback-1"></div>
+              </div>
+
+              <div class="question" data-question="2">
+                <div class="q-title">
+                  2. ¿Qué debes revisar SIEMPRE antes de enviar un informe?
+                </div>
+                <div class="options">
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Solo la ortografía del título, lo demás no es tan importante.
+                    </span>
+                    <span class="badge">A</span>
+                  </button>
+                  <button class="option" data-correct="true">
+                    <span class="option-label">
+                      Cliente, tipo de servicio, fecha y que el contenido describa hallazgos,
+                      acciones y recomendaciones.
+                    </span>
+                    <span class="badge">B</span>
+                  </button>
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Nada, si el sistema generó el informe automáticamente debe estar bien.
+                    </span>
+                    <span class="badge">C</span>
+                  </button>
+                </div>
+                <div class="feedback" id="feedback-2"></div>
+              </div>
+
+              <div class="question" data-question="3">
+                <div class="q-title">
+                  3. ¿Cuál es una posible consecuencia de enviar un informe incorrecto?
+                </div>
+                <div class="options">
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Ninguna, porque el cliente rara vez los lee.
+                    </span>
+                    <span class="badge">A</span>
+                  </button>
+                  <button class="option" data-correct="true">
+                    <span class="option-label">
+                      Pérdida de confianza, posible pérdida de contratos y daño a la
+                      reputación.
+                    </span>
+                    <span class="badge">B</span>
+                  </button>
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Solo tener que reenviar el archivo, sin mayores consecuencias.
+                    </span>
+                    <span class="badge">C</span>
+                  </button>
+                </div>
+                <div class="feedback" id="feedback-3"></div>
+              </div>
+
+              <div class="question" data-question="4">
+                <div class="q-title">
+                  4. ¿Cuál de estas opciones refleja una buena práctica?
+                </div>
+                <div class="options">
+                  <button class="option" data-correct="true">
+                    <span class="option-label">
+                      Seguir los protocolos, revisar el informe completo y enviarlo solo
+                      cuando estés seguro de que es correcto.
+                    </span>
+                    <span class="badge">A</span>
+                  </button>
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Confiar en que “siempre sale bien” y enviar sin leer.
+                    </span>
+                    <span class="badge">B</span>
+                  </button>
+                  <button class="option" data-correct="false">
+                    <span class="option-label">
+                      Dejar campos vacíos para ganar tiempo, si el cliente necesita algo lo
+                      pedirá.
+                    </span>
+                    <span class="badge">C</span>
+                  </button>
+                </div>
+                <div class="feedback" id="feedback-4"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="quiz-summary" id="quizSummary">
+                <div class="card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="10" fill="#0f172a" stroke="#22c55e" />
+                    <path d="M13.5 14.2c0-1.8 1.2-3 2.7-3 1.3 0 2.3.8 2.3 2 0 1.1-.7 1.6-1.5 2.1-.7.4-1 .8-1 1.7" fill="none" stroke="#bbf7d0" stroke-width="1.3" stroke-linecap="round" />
+                    <circle cx="16" cy="20.4" r="1" fill="#bbf7d0" />
+                  </svg>
+                </div>
+                <div class="quiz-score" id="quizScore">
+                  Responde las preguntas para ver tu resultado.
+                </div>
+                <p id="quizMessage">
+                  Haz clic en una opción por cada pregunta. Verás de inmediato si tu respuesta
+                  es correcta o incorrecta, con una breve explicación.
+                </p>
+                <div class="badge-pill">
+                  <span>Recuerda:</span>
+                  <span>
+                    <strong>cada informe representa a SERVIPLAGAS SAS y puede hacer que un
+                    cliente se quede o se vaya.</strong>
+                  </span>
+                </div>
+                <button class="btn btn-secondary" id="seeResult" style="margin-top: 6px">
+                  Ver resumen de mi resultado
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <div class="step-info">
+              Sección <strong>6</strong> de <strong>6</strong> • Mini evaluación
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" data-prev="consecuencias">
+                Anterior
+              </button>
+              <button class="btn btn-primary" data-next="intro">
+                Volver al inicio
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        Este recurso funciona sin conexión. Para compartirlo, envía este archivo
+        <strong>Capacitacion-elaboracion-informes.html</strong> por correo o WhatsApp como
+        documento. La persona solo debe abrirlo con su navegador (Chrome, Edge, Safari, etc.).
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const sectionOrder = ["intro", "importancia", "errores", "pasos", "consecuencias", "quiz"];
+        const navButtons = Array.from(document.querySelectorAll(".nav button[data-section]"));
+        const sections = sectionOrder.map((id) => document.getElementById(id));
+        const progressInner = document.getElementById("progressInner");
+
+        function showSection(id) {
+          sections.forEach((section) => {
+            section.classList.toggle("active", section.id === id);
+          });
+          navButtons.forEach((btn) => {
+            btn.classList.toggle("active", btn.getAttribute("data-section") === id);
+          });
+          const index = sectionOrder.indexOf(id);
+          if (index >= 0) {
+            const percentage = ((index + 1) / sectionOrder.length) * 100;
+            progressInner.style.width = percentage + "%";
+          }
+        }
+
+        navButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-section");
+            showSection(id);
+          });
+        });
+
+        document.querySelectorAll("[data-next]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-next");
+            if (target) {
+              showSection(target);
+            }
+          });
+        });
+
+        document.querySelectorAll("[data-prev]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-prev");
+            if (target) {
+              showSection(target);
+            }
+          });
+        });
+
+        const quizState = {
+          1: null,
+          2: null,
+          3: null,
+          4: null
+        };
+
+        function updateFeedback(questionNumber, isCorrect) {
+          const feedbackEl = document.getElementById("feedback-" + questionNumber);
+          if (!feedbackEl) return;
+
+          const baseMessages = {
+            1: {
+              correct:
+                "Correcto: el informe es la evidencia del servicio y la imagen de SERVIPLAGAS SAS ante el cliente.",
+              incorrect:
+                "Revisa: el informe es mucho más que un requisito, es la evidencia del servicio y la base para decisiones del cliente."
+            },
+            2: {
+              correct:
+                "Correcto: siempre verifica cliente, servicio, fecha y contenido completo antes de enviar.",
+              incorrect:
+                "Ojo: confiar solo en el sistema o revisar por encima aumenta el riesgo de errores graves."
+            },
+            3: {
+              correct:
+                "Correcto: un mal informe puede generar pérdida de confianza, contratos y reputación.",
+              incorrect:
+                "Importante: los clientes sí leen y usan los informes para tomar decisiones; un error puede costar mucho."
+            },
+            4: {
+              correct:
+                "Correcto: seguir protocolos y revisar siempre es una buena práctica profesional.",
+              incorrect:
+                "Atención: enviar sin revisar o dejar campos vacíos da una imagen de desorden y falta de profesionalismo."
+            }
+          };
+
+          const messages = baseMessages[questionNumber];
+          if (!messages) return;
+
+          feedbackEl.textContent = isCorrect ? messages.correct : messages.incorrect;
+          feedbackEl.className = "feedback " + (isCorrect ? "correct" : "incorrect");
+        }
+
+        document.querySelectorAll(".question").forEach((questionEl) => {
+          const qNumber = parseInt(questionEl.getAttribute("data-question"), 10);
+          const options = questionEl.querySelectorAll(".option");
+
+          options.forEach((opt) => {
+            opt.addEventListener("click", () => {
+              const isCorrect = opt.getAttribute("data-correct") === "true";
+
+              options.forEach((o) => {
+                o.classList.remove("correct", "incorrect");
+              });
+
+              opt.classList.add(isCorrect ? "correct" : "incorrect");
+              quizState[qNumber] = isCorrect;
+              updateFeedback(qNumber, isCorrect);
+            });
+          });
+        });
+
+        const seeResultBtn = document.getElementById("seeResult");
+        const scoreEl = document.getElementById("quizScore");
+        const messageEl = document.getElementById("quizMessage");
+
+        if (seeResultBtn && scoreEl && messageEl) {
+          seeResultBtn.addEventListener("click", () => {
+            const values = Object.values(quizState);
+            const answered = values.filter((v) => v !== null).length;
+            const correct = values.filter((v) => v === true).length;
+
+            if (answered === 0) {
+              scoreEl.textContent = "Primero responde al menos una pregunta.";
+              messageEl.textContent =
+                "Revisa cada pregunta, elige la respuesta que consideres correcta y luego vuelve a ver tu resultado.";
+              return;
+            }
+
+            const total = values.length;
+            const percent = Math.round((correct / total) * 100);
+            scoreEl.textContent = `Tu resultado: ${correct}/${total} (${percent}%)`;
+
+            if (percent === 100) {
+              messageEl.textContent =
+                "Excelente. Tienes claro que el informe es la evidencia del servicio y que un error puede costar clientes.";
+            } else if (percent >= 75) {
+              messageEl.textContent =
+                "Muy bien. Repasa las preguntas que fallaste para reforzar los puntos clave sobre confianza y revisión del informe.";
+            } else {
+              messageEl.textContent =
+                "Te recomiendo volver a leer las secciones de importancia, errores y consecuencias. Cada informe que envías representa a SERVIPLAGAS SAS.";
+            }
+          });
+        }
+
+        showSection("intro");
+      })();
+    </script>
+  </body>
+</html>
+
